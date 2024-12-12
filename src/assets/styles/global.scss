@@ -1,0 +1,14 @@
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+html {
+    width: 100%;
+    min-height: 100vh;
+    margin-right: calc(-1 * (100vw - 100%));
+}
+
+body {
+    background-color: var(--white);
+    overflow-x: hidden;
+}
