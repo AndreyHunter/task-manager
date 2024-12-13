@@ -1,0 +1,30 @@
+.check {
+    display: none;
+}
+
+.realCheck {
+    width: 26px;
+    height: 26px;
+
+    border: 1px solid var(--purple);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--main-transition);
+
+    > svg {
+        opacity: 0;
+        transform: translateY(-1.5px);
+    }
+}
+
+.check:checked + .realCheck {
+    background-color: var(--purple);
+    border: none;
+    > svg {
+        opacity: 1;
+    }
+}

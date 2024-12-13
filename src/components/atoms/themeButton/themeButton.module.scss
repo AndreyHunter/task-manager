@@ -1,0 +1,12 @@
+.root {
+    width: 38px;
+    height: 38px;
+    background-color: var(--purple);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

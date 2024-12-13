@@ -1,0 +1,17 @@
+.root {
+    padding-top: 80px;
+}
+
+.title {
+    text-align: center;
+}
+
+.search {
+    padding-top: 30px;
+
+    > div {
+        display: flex;
+
+        gap: 10px;
+    }
+}

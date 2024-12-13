@@ -1,0 +1,23 @@
+.root {
+    width: 100%;
+    height: 38px;
+    padding: 16px 8px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+
+    border-radius: var(--border-radius);
+    border: 1.6px solid var(--purple);
+
+    > input {
+        width: 100%;
+        color: var(--purple);
+
+        &::placeholder {
+            color: inherit;
+            opacity: 0.4;
+        }
+    }
+}

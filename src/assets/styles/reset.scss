@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box;
     margin: 0;
+    padding: 0;
 }
 
 img {
@@ -14,6 +15,10 @@ h4,
 h5,
 h6 {
     margin: 0;
+}
+
+h1 {
+    font-size: 2rem;
 }
 
 ol,
@@ -33,4 +38,9 @@ input {
 
 input {
     background-color: transparent;
+}
+
+select {
+    outline: none;
+    border: none;
 }

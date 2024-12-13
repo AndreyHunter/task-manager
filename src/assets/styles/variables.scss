@@ -1,9 +1,21 @@
 :root {
+    // colors
     --black: #252525;
     --purple: #6c63ff;
     --white: #f7f7f7;
+
+    // borders
+    --border-radius: 5px;
+
+    // transition
+    --main-transition: 0.1s ease-in-out;
 }
 
-$black: #252525;
-$purple: #6c63ff;
-$white: #f7f7f7;
+:root {
+    // container
+    --containerLg: 1440px;
+    --containerMd: 1170px;
+    --containerSm: 960px;
+
+    --containerPadding: 15px;
+}
