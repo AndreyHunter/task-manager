@@ -3,11 +3,13 @@ import styles from './select.module.scss';
 
 export const Select: React.FC = () => {
     return (
-        <select className={styles.root}>
-            <option value="All">All</option>
-            <option value="Complete">Complete</option>
-            <option value="Incomplete">Incomplete</option>
-        </select>
+        <>
+            <select className={styles.root}>
+                <option value="All">ALL</option>
+                <option value="Complete">COMPLETE</option>
+                <option value="Incomplete">INCOMPLETE</option>
+            </select>
+        </>
     );
 };
 

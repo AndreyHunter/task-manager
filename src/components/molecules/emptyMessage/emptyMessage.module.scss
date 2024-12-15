@@ -1,0 +1,15 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    > svg {
+        width: 370px;
+        height: 370px;
+    }
+
+    > div {
+        font-size: 1.6rem;
+    }
+}

@@ -1,0 +1,27 @@
+.root {
+    width: 100px;
+    height: 38px;
+
+    background-color: var(--purple);
+    border-radius: var(--border-radius);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: var(--main-transition);
+
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+.root.transparent {
+    width: 110px;
+    background-color: transparent;
+    border: 1px solid var(--purple);
+    color: var(--purple);
+}

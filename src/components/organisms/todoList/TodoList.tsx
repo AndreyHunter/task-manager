@@ -1,16 +1,30 @@
 import React from 'react';
+import clsx from 'clsx';
 
 import { TodoItem } from '../../molecules/todoItem/TodoItem';
-import { Container } from '../../helpers/container/Container';
+
+import { TypeTodos } from '../../../types/';
 
 import styles from './todoList.module.scss';
 
-export const TodoList: React.FC = () => {
+interface TodoListProps extends React.HTMLAttributes<HTMLElement> {
+    todos: TypeTodos;
+    onCompleteTodo: (id: number) => void;
+}
+
+export const TodoList: React.FC<TodoListProps> = ({ todos, onCompleteTodo, className }) => {
+    const combinedClasses = clsx(styles.root, className);
     return (
-        <Container className={styles.root}>
-            <ul>
-                <TodoItem />
-            </ul>
-        </Container>
+        <ul className={combinedClasses}>
+            {todos.map((todo) => {
+                return (
+                    <TodoItem
+                        key={todo.id}
+                        {...todo}
+                        onCompleteTodo={() => onCompleteTodo(todo.id)}
+                    />
+                );
+            })}
+        </ul>
     );
 };

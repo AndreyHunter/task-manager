@@ -5,7 +5,6 @@ import SunIcon from '../../../assets/images/svg/sun.svg?react';
 import styles from './themeButton.module.scss';
 
 export const ThemeButton: React.FC = () => {
-    return (
-        <div className={styles.root}>{/* {type === 'moon' ? <MoonIcon /> : <SunIcon />} */}</div>
-    );
+    const type = 'moon';
+    return <div className={styles.root}> {type === 'moon' ? <MoonIcon /> : <SunIcon />} </div>;
 };

@@ -1,0 +1,21 @@
+.root {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--purple);
+    box-shadow: 0 0 4px 0 var(--purple);
+    transition: background-color 0.1 ease;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--purpleHover);
+        outline: 2px solid var(--purple);
+        outline-offset: -2px;
+    }
+}
