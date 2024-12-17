@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 
 import { CheckBox } from '../../atoms/checkBox/CheckBox';
 
@@ -15,8 +16,9 @@ interface TodoItemProps {
 import styles from './todoItem.module.scss';
 
 export const TodoItem: React.FC<TodoItemProps> = ({ text, completed, onCompleteTodo }) => {
+    const combinedClasses = clsx(styles.root, completed && styles.active);
     return (
-        <li className={styles.root}>
+        <li className={combinedClasses}>
             <div className={styles.title}>
                 <CheckBox checked={completed} onClick={onCompleteTodo} />
                 <strong onClick={onCompleteTodo}>{text}</strong>

@@ -9,6 +9,19 @@ html {
 }
 
 body {
-    background-color: var(--white);
     overflow-x: hidden;
+}
+
+body.theme-light {
+    --text-color: black;
+    --background-color: var(--white);
+    background-color: var(--background-color);
+    color: black;
+}
+
+body.theme-dark {
+    --text-color: white;
+    --background-color: #252525;
+    background-color: var(--background-color);
+    color: white;
 }

@@ -1,4 +1,8 @@
-import React from 'react';
+import { forwardRef } from 'react';
+
+import clsx from 'clsx';
+
+import { useTheme } from '../../../context/ThemeProvider';
 
 import SearchIcon from '../../../assets/images/svg/search.svg?react';
 
@@ -9,11 +13,15 @@ interface InputProps {
     placeholder: string;
 }
 
-export const Input: React.FC<InputProps> = ({ search = false, placeholder }) => {
-    return (
-        <div className={styles.root}>
-            <input type="text" placeholder={placeholder} />
-            {search && <SearchIcon />}
-        </div>
-    );
-};
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+    ({ search = false, placeholder }, ref) => {
+        const { theme } = useTheme();
+        const combinedClasses = clsx(styles.root, { [styles.dark]: theme === 'dark' });
+        return (
+            <div className={combinedClasses}>
+                <input type="text" placeholder={placeholder} ref={ref} />
+                {search && <SearchIcon />}
+            </div>
+        );
+    },
+);

@@ -24,7 +24,7 @@
     padding: 20px;
     border-radius: 16px;
 
-    background-color: white;
+    background-color: var(--background-color);
 
     display: flex;
     flex-direction: column;
@@ -36,9 +36,14 @@
     &.active {
         transform: scale(1);
     }
+
+    &.dark {
+        border: 1px solid white;
+    }
 }
 
 .title {
+    color: var(--text-color);
     text-align: center;
     font-size: 1.5rem;
     font-weight: 600;
