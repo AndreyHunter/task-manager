@@ -40,19 +40,22 @@ export const App: React.FC = () => {
     ]);
     const [isOpen, setIsOpen] = useState(false);
 
+    const handleAddTodo = (text: string) => {
+        setTodos([...todos, { id: performance.now(), text, completed: false }]);
+    };
+
     const handleCompleteTodo = (id: number) => {
         setTodos(
-            todos.map((todo) => {
-                if (todo.id === id) {
-                    return {
-                        ...todo,
-                        completed: !todo.completed,
-                    };
-                } else {
-                    return todo;
-                }
-            }),
+            todos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)),
         );
+    };
+
+    const handleChangeTodo = (id: number, text: string) => {
+        setTodos(todos.map((todo) => (todo.id === id ? { ...todo, text } : todo)));
+    };
+
+    const handleDeleteTodo = (id: number) => {
+        setTodos(todos.filter((todo) => todo.id !== id));
     };
 
     return (
@@ -67,12 +70,15 @@ export const App: React.FC = () => {
                     <ThemeButton />
                 </div>
 
-                {todos.length > 1 ? (
-                    <TodoList
-                        className={styles.list}
-                        todos={todos}
-                        onCompleteTodo={handleCompleteTodo}
-                    />
+                {todos.length > 0 ? (
+                    <div className={styles.list}>
+                        <TodoList
+                            todos={todos}
+                            onCompleteTodo={handleCompleteTodo}
+                            onChangeTodo={handleChangeTodo}
+                            onDeleteTodo={handleDeleteTodo}
+                        />
+                    </div>
                 ) : (
                     <div className={styles.empty}>
                         <EmptyMessage />
@@ -81,7 +87,7 @@ export const App: React.FC = () => {
 
                 <ModalButton className={styles.modalBtn} onClick={() => setIsOpen(true)} />
             </Container>
-            <TodoModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+            <TodoModal isOpen={isOpen} onClose={() => setIsOpen(false)} onAddTodo={handleAddTodo} />
         </div>
     );
 };

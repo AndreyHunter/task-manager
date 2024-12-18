@@ -15,7 +15,9 @@
     gap: 10px;
 
     > strong {
+        max-width: 770px;
         cursor: pointer;
+        word-wrap: break-word;
     }
 }
 
@@ -23,11 +25,17 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    position: relative;
 
     > svg {
         width: 24px;
         height: 24px;
         cursor: pointer;
+    }
+
+    .edit {
+        right: 80px;
+        position: absolute;
     }
 }
 

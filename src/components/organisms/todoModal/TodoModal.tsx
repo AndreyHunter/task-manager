@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import clsx from 'clsx';
 
@@ -12,9 +12,10 @@ import styles from './todoModal.module.scss';
 interface TodoModalProps {
     isOpen: boolean;
     onClose: () => void;
+    onAddTodo: (text: string) => void;
 }
 
-export const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose }) => {
+export const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose, onAddTodo }) => {
     const ref = useRef<HTMLInputElement | null>(null);
     const { theme } = useTheme();
     const combinedClasses = clsx(styles.root, isOpen && styles.active);
@@ -23,6 +24,8 @@ export const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose }) => {
         isOpen && styles.active,
         theme === 'dark' && styles.dark,
     );
+
+    const [text, setText] = useState('');
 
     useEffect(() => {
         if (isOpen) {
@@ -52,18 +55,40 @@ export const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose }) => {
         };
     }, [isOpen]);
 
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (text) {
+            setText('');
+            onClose();
+            onAddTodo(text);
+        }
+    };
+
+    const handleSetInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setText(e.target.value);
+    };
+
     return (
         <div className={combinedClasses} onClick={onClose}>
-            <div className={contentClasses} onClick={(e) => e.stopPropagation()}>
+            <form
+                className={contentClasses}
+                onClick={(e) => e.stopPropagation()}
+                onSubmit={handleSubmit}
+            >
                 <div>
                     <div className={styles.title}>NEW NOTE</div>
-                    <Input placeholder="Input your note..." ref={ref} />
+                    <Input
+                        placeholder="Input your note..."
+                        ref={ref}
+                        value={text}
+                        onChange={handleSetInput}
+                    />
                 </div>
                 <div className={styles.buttons}>
-                    <Button type="transparent">CHANCEL</Button>
-                    <Button>APPLY</Button>
+                    <Button kind="transparent">CHANCEL</Button>
+                    <Button type="submit">APPLY</Button>
                 </div>
-            </div>
+            </form>
         </div>
     );
 };
