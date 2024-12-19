@@ -44,6 +44,7 @@ export default tseslint.config(
                     allowConstantExport: true,
                 },
             ],
+            'react-refresh/only-export-components': 'off',
         },
     },
     {

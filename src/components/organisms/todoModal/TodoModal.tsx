@@ -1,21 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 
 import clsx from 'clsx';
+
+import { useTheme } from '../../../context/ThemeProvider';
+import { useTodos, useAppDispatch } from '../../../context/TodoProvider';
+import { addTodo } from '../../../store/todo/todoActions';
 
 import { Input } from '../../molecules/input/Input';
 import { Button } from '../../atoms/button/Button';
 
-import { useTheme } from '../../../context/ThemeProvider';
-
 import styles from './todoModal.module.scss';
 
-interface TodoModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onAddTodo: (text: string) => void;
-}
+export const TodoModal: React.FC = () => {
+    const { isOpen } = useTodos();
+    const dispatch = useAppDispatch();
 
-export const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose, onAddTodo }) => {
     const ref = useRef<HTMLInputElement | null>(null);
     const { theme } = useTheme();
     const combinedClasses = clsx(styles.root, isOpen && styles.active);
@@ -27,11 +26,17 @@ export const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose, onAddTodo
 
     const [text, setText] = useState('');
 
+    const handleCloseModal = useCallback(() => {
+        dispatch({
+            type: 'close_todo_modal',
+        });
+    }, [dispatch]);
+
     useEffect(() => {
         if (isOpen) {
             const handleKeydown = (e: KeyboardEvent) => {
                 if (e.key === 'Escape') {
-                    onClose();
+                    handleCloseModal();
                 }
             };
 
@@ -41,7 +46,7 @@ export const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose, onAddTodo
                 removeEventListener('keydown', handleKeydown);
             };
         }
-    }, [isOpen, onClose]);
+    }, [isOpen, handleCloseModal]);
 
     useEffect(() => {
         const timerId = setTimeout(() => {
@@ -55,12 +60,16 @@ export const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose, onAddTodo
         };
     }, [isOpen]);
 
+    const handleAddTodo = (text: string) => {
+        dispatch(addTodo(text));
+    };
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (text) {
             setText('');
-            onClose();
-            onAddTodo(text);
+            handleCloseModal();
+            handleAddTodo(text);
         }
     };
 
@@ -69,7 +78,7 @@ export const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose, onAddTodo
     };
 
     return (
-        <div className={combinedClasses} onClick={onClose}>
+        <div className={combinedClasses} onClick={handleCloseModal}>
             <form
                 className={contentClasses}
                 onClick={(e) => e.stopPropagation()}
