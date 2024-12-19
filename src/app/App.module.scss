@@ -1,5 +1,9 @@
 .root {
     padding-top: 80px;
+
+    @media (max-width: 768px) {
+        padding-top: 40px;
+    }
 }
 
 .container {
@@ -10,14 +14,12 @@
     text-align: center;
 }
 
-.search {
-    padding-top: 30px;
-    display: flex;
-    gap: 10px;
-}
-
 .list {
     padding-top: 50px;
+
+    @media (max-width: 414px) {
+        padding-top: 30px;
+    }
 }
 
 .empty {

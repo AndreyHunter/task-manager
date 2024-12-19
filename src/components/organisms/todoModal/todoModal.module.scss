@@ -5,12 +5,13 @@
     inset: 0;
     opacity: 0;
     visibility: hidden;
+    padding-inline: 15px;
     transition: var(--main-transition);
 
     background-color: rgba(0, 0, 0, 0.501);
 
     display: grid;
-    place-content: center;
+    place-items: center;
 
     &.active {
         opacity: 1;
@@ -40,6 +41,10 @@
     &.dark {
         border: 1px solid white;
     }
+
+    @media (max-width: 570px) {
+        width: 100%;
+    }
 }
 
 .title {
@@ -54,4 +59,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }

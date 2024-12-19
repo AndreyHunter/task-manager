@@ -1,8 +1,10 @@
 .root {
+    height: 38px;
+    padding: 10px;
+
     border-radius: var(--border-radius);
     background-color: var(--purple);
     color: var(--white);
-    padding: 10px;
     font-weight: 600;
     cursor: pointer;
     transition: var(--main-transition);

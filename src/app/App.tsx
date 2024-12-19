@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
+import { useImmer } from 'use-immer';
 
 import { Section } from '../components/atoms/section/Section';
 import { Heading } from '../components/atoms/heading/Heading';
-import { Input } from '../components/molecules/input/Input';
-import { Select } from '../components/atoms/select/Select';
-import { ThemeButton } from '../components/atoms/themeButton/ThemeButton';
+import { TodoListHeader } from '../components/organisms/todoListHeader/TodoListHeader';
 import { TodoList } from '../components/organisms/todoList/TodoList';
 import { ModalButton } from '../components/atoms/modalButton/ModalButton';
 import { EmptyMessage } from '../components/molecules/emptyMessage/EmptyMessage';
 import { TodoModal } from '../components/organisms/todoModal/TodoModal';
 import { Container } from '../components/helpers/container/Container';
-
 import { TypeTodos } from '../types/';
 
 import styles from './App.module.scss';
 
 export const App: React.FC = () => {
-    const [todos, setTodos] = useState<TypeTodos>([
+    const [todos, setTodos] = useImmer<TypeTodos>([
         {
             id: 1,
             completed: false,
@@ -41,17 +39,27 @@ export const App: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleAddTodo = (text: string) => {
-        setTodos([...todos, { id: performance.now(), text, completed: false }]);
+        setTodos((draft) => {
+            draft.push({ id: performance.now(), text, completed: false });
+        });
     };
 
     const handleCompleteTodo = (id: number) => {
-        setTodos(
-            todos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)),
-        );
+        setTodos((draft) => {
+            const todo = draft.find((todo) => todo.id === id);
+            if (todo) {
+                todo.completed = !todo.completed;
+            }
+        });
     };
 
     const handleChangeTodo = (id: number, text: string) => {
-        setTodos(todos.map((todo) => (todo.id === id ? { ...todo, text } : todo)));
+        setTodos((draft) => {
+            const todo = draft.find((todo) => todo.id === id);
+            if (todo) {
+                todo.text = text;
+            }
+        });
     };
 
     const handleDeleteTodo = (id: number) => {
@@ -64,12 +72,7 @@ export const App: React.FC = () => {
                 <Section>
                     <Heading className={styles.title}>TODO LIST</Heading>
                 </Section>
-                <div className={styles.search}>
-                    <Input placeholder="Search note..." search />
-                    <Select />
-                    <ThemeButton />
-                </div>
-
+                <TodoListHeader />
                 {todos.length > 0 ? (
                     <div className={styles.list}>
                         <TodoList

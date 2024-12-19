@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
+import SimpleBar from 'simplebar-react';
 
 import { TodoItem } from '../../molecules/todoItem/TodoItem';
 
 import { TypeTodos } from '../../../types/';
+
+import 'simplebar-react/dist/simplebar.min.css';
+import './todoList.scss';
 
 import styles from './todoList.module.scss';
 
@@ -30,20 +34,22 @@ export const TodoList: React.FC<TodoListProps> = ({
 
     return (
         <ul className={combinedClasses}>
-            {todos.map((todo) => {
-                return (
-                    <TodoItem
-                        key={todo.id}
-                        {...todo}
-                        onCompleteTodo={() => onCompleteTodo(todo.id)}
-                        onChangeTodo={onChangeTodo}
-                        onDeleteTodo={() => onDeleteTodo(todo.id)}
-                        onShowEditForm={setShowEditFormId}
-                        showEditFormId={showEditFormId}
-                        onCloseEditForm={handleCloseEditForm}
-                    />
-                );
-            })}
+            <SimpleBar style={{ maxHeight: 470, paddingRight: 15 }}>
+                {todos.map((todo) => {
+                    return (
+                        <TodoItem
+                            key={todo.id}
+                            {...todo}
+                            onCompleteTodo={() => onCompleteTodo(todo.id)}
+                            onChangeTodo={onChangeTodo}
+                            onDeleteTodo={() => onDeleteTodo(todo.id)}
+                            onShowEditForm={setShowEditFormId}
+                            showEditFormId={showEditFormId}
+                            onCloseEditForm={handleCloseEditForm}
+                        />
+                    );
+                })}
+            </SimpleBar>
         </ul>
     );
 };

@@ -1,0 +1,14 @@
+.simplebar-content {
+    > li:not(:last-child) {
+        border-bottom: 1px solid var(--itemLine);
+        padding-bottom: 15px;
+    }
+
+    > li {
+        padding-top: 15px;
+    }
+}
+
+.simplebar-scrollbar:before {
+    background-color: var(--purple);
+}
