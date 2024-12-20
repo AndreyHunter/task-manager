@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import { TypeTodos } from '../../types';
 
 import {
@@ -50,14 +52,14 @@ type TypeAppTodoAction = {
 type TypeCompletedTodoAction = {
     type: typeof COMPLETED_TODO;
     payload: {
-        id: number;
+        id: string;
     };
 };
 
 type TypeChangeTodoAction = {
     type: typeof CHANGE_TODO;
     payload: {
-        id: number;
+        id: string;
         text: string;
     };
 };
@@ -65,7 +67,7 @@ type TypeChangeTodoAction = {
 type TypeDeleteTodoAction = {
     type: typeof DELETE_TODO;
     payload: {
-        id: number;
+        id: string;
     };
 };
 
@@ -87,65 +89,47 @@ export type TypeAction =
 
 export const todoReducer = (state: initialState, action: TypeAction) => {
     switch (action.type) {
-        case ADD_TODO: {
-            return {
-                ...state,
-                todos: [
-                    ...state.todos,
-                    {
-                        id: performance.now(),
-                        text: action.payload.text,
-                        completed: false,
-                    },
-                ],
-            };
-        }
-        case COMPLETED_TODO: {
-            return {
-                ...state,
-                todos: state.todos.map((todo) => {
-                    if (todo.id === action.payload.id) {
-                        return {
-                            ...todo,
-                            completed: !todo.completed,
-                        };
-                    }
-                    return todo;
-                }),
-            };
-        }
-        case CHANGE_TODO: {
-            return {
-                ...state,
-                todos: state.todos.map((todo) => {
-                    if (todo.id === action.payload.id) {
-                        return {
-                            ...todo,
-                            text: action.payload.text,
-                        };
-                    }
-                    return todo;
-                }),
-            };
-        }
-        case DELETE_TODO: {
-            return {
-                ...state,
-                todos: state.todos.filter((todo) => todo.id !== action.payload.id),
-            };
-        }
-        case OPEN_TODO_MODAL: {
-            return {
-                ...state,
-                isOpen: true,
-            };
-        }
-        case CLOSE_TODO_MODAL: {
-            return {
-                ...state,
-                isOpen: false,
-            };
-        }
+        case ADD_TODO:
+            {
+                state.todos.push({
+                    id: uuidv4(),
+                    text: action.payload.text,
+                    completed: false,
+                });
+            }
+            break;
+        case COMPLETED_TODO:
+            {
+                const todo = state.todos.find((todo) => todo.id === action.payload.id);
+                if (todo) {
+                    todo.completed = !todo.completed;
+                }
+            }
+            break;
+        case CHANGE_TODO:
+            {
+                const todo = state.todos.find((todo) => todo.id === action.payload.id);
+                if (todo) {
+                    todo.text = action.payload.text;
+                }
+            }
+            break;
+        case DELETE_TODO:
+            {
+                const todoIndex = state.todos.findIndex((todo) => todo.id === action.payload.id);
+                state.todos.splice(todoIndex, 1);
+            }
+            break;
+        case OPEN_TODO_MODAL:
+            {
+                state.isOpen = true;
+            }
+            break;
+        case CLOSE_TODO_MODAL:
+            {
+                state.isOpen = false;
+            }
+            break;
         default: {
             return state;
         }

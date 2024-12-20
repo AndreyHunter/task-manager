@@ -1,4 +1,6 @@
-import React, { createContext, useReducer, ReactNode, Dispatch, useContext } from 'react';
+import React, { createContext, ReactNode, Dispatch, useContext } from 'react';
+
+import { useImmerReducer } from 'use-immer';
 
 import { todoReducer, initialState } from '../store/todo/todoReducer';
 import { TypeTodos } from '../types/';
@@ -23,7 +25,7 @@ export const TodoDispatchContext = createContext<Dispatch<TypeAction>>((() => {
 }) as any);
 
 export const TodoProvider: React.FC<TodoProviderProps> = ({ children }) => {
-    const [{ todos, isOpen }, dispatch] = useReducer(todoReducer, initialState);
+    const [{ todos, isOpen }, dispatch] = useImmerReducer(todoReducer, initialState);
 
     return (
         <TodoContext.Provider value={{ todos, isOpen }}>

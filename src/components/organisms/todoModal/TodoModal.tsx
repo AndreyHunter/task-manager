@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import { useTheme } from '../../../context/ThemeProvider';
 import { useTodos, useAppDispatch } from '../../../context/TodoProvider';
-import { addTodo } from '../../../store/todo/todoActions';
+import { addTodo, closeModal } from '../../../store/todo/todoActions';
 
 import { Input } from '../../molecules/input/Input';
 import { Button } from '../../atoms/button/Button';
@@ -27,9 +27,7 @@ export const TodoModal: React.FC = () => {
     const [text, setText] = useState('');
 
     const handleCloseModal = useCallback(() => {
-        dispatch({
-            type: 'close_todo_modal',
-        });
+        dispatch(closeModal());
     }, [dispatch]);
 
     useEffect(() => {
@@ -94,7 +92,9 @@ export const TodoModal: React.FC = () => {
                     />
                 </div>
                 <div className={styles.buttons}>
-                    <Button kind="transparent">CHANCEL</Button>
+                    <Button kind="transparent" onClick={handleCloseModal}>
+                        CHANCEL
+                    </Button>
                     <Button type="submit">APPLY</Button>
                 </div>
             </form>

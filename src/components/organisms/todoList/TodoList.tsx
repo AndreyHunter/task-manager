@@ -19,21 +19,21 @@ export const TodoList: React.FC<React.HTMLAttributes<HTMLUListElement>> = ({ cla
     const { todos } = useTodos();
     const dispatch = useAppDispatch();
 
-    const [showEditFormId, setShowEditFormId] = useState<number | null>(null);
+    const [showEditFormId, setShowEditFormId] = useState<string | null>(null);
 
     const handleCloseEditForm = () => {
         setShowEditFormId(null);
     };
 
-    const handleCompleteTodo = (id: number) => {
+    const handleCompleteTodo = (id: string) => {
         dispatch(completeTodo(id));
     };
 
-    const handleChangeTodo = (id: number, text: string) => {
+    const handleChangeTodo = (id: string, text: string) => {
         dispatch(changeTodo(id, text));
     };
 
-    const handleDeleteTodo = (id: number) => {
+    const handleDeleteTodo = (id: string) => {
         dispatch(deleteTodo(id));
     };
 

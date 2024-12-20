@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import { useAppDispatch } from '../../../context/TodoProvider';
+import { openModal } from '../../../store/todo/todoActions';
 
 import PlusIcon from '../../../assets/images/svg/plus.svg?react';
 
@@ -16,9 +17,7 @@ export const ModalButton: React.FC<ModalButtonProps> = ({ className }) => {
     const dispatch = useAppDispatch();
 
     const handleOpenModal = () => {
-        dispatch({
-            type: 'open_todo_modal',
-        });
+        dispatch(openModal());
     };
 
     return (

@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "id": "1",
+      "completed": false,
+      "text": "Wake up"
+    },
+    {
+      "id": "2",
+      "completed": true,
+      "text": "Brush the teeth"
+    },
+    {
+      "id": "3",
+      "completed": false,
+      "text": "Brush the teeth"
+    }
+  ]
+}

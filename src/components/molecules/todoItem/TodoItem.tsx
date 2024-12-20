@@ -8,14 +8,14 @@ import PenIcon from '../../../assets/images/svg/pen.svg?react';
 import TrashIcon from '../../../assets/images/svg/trash.svg?react';
 
 interface TodoItemProps {
-    id: number;
+    id: string;
     text: string;
     completed: boolean;
     onCompleteTodo: () => void;
-    onChangeTodo: (id: number, text: string) => void;
+    onChangeTodo: (id: string, text: string) => void;
     onDeleteTodo: () => void;
-    onShowEditForm: (id: number | null) => void;
-    showEditFormId: number | null;
+    onShowEditForm: (id: string | null) => void;
+    showEditFormId: string | null;
     onCloseEditForm: () => void;
 }
 
