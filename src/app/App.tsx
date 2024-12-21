@@ -7,6 +7,7 @@ import { TodoList } from '../components/organisms/todoList/TodoList';
 import { ModalButton } from '../components/atoms/modalButton/ModalButton';
 import { TodoModal } from '../components/organisms/todoModal/TodoModal';
 import { Container } from '../components/helpers/container/Container';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 import styles from './App.module.scss';
 
@@ -22,6 +23,7 @@ export const App: React.FC = () => {
                 <ModalButton className={styles.modalBtn} />
             </Container>
             <TodoModal />
+            <ThemeSwitcher />
         </div>
     );
 };

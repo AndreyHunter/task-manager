@@ -63,6 +63,10 @@ export const TodoItem: React.FC<TodoItemProps> = ({
         onCloseEditForm();
     };
 
+    const handleOnShowEditForm = () => {
+        onShowEditForm(showEditFormId ? null : id);
+    };
+
     return (
         <li className={combinedClasses}>
             <div className={styles.title}>
@@ -79,10 +83,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
                         />
                     </div>
                 )}
-                <PenIcon
-                    className={styles.pen}
-                    onClick={() => onShowEditForm(showEditFormId ? null : id)}
-                />
+                <PenIcon className={styles.pen} onClick={handleOnShowEditForm} />
                 <TrashIcon className={styles.trash} onClick={onDeleteTodo} />
             </div>
         </li>

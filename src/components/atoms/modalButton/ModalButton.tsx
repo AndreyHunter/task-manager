@@ -1,8 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import { useAppDispatch } from '../../../context/TodoProvider';
-import { openModal } from '../../../store/todo/todoActions';
+import { useAppDispatch } from '../../../store/hooks';
+import { openModal } from '../../../store/todoModal/todoModalActions';
 
 import PlusIcon from '../../../assets/images/svg/plus.svg?react';
 

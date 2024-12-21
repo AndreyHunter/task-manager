@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { useTheme } from '../../../context/ThemeProvider';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { selectTheme } from '../../../store/theme/themeReducer';
 
 import MoonIcon from '../../../assets/images/svg/moon.svg?react';
 import SunIcon from '../../../assets/images/svg/sun.svg?react';
@@ -8,16 +9,18 @@ import SunIcon from '../../../assets/images/svg/sun.svg?react';
 import styles from './themeButton.module.scss';
 
 export const ThemeButton: React.FC = () => {
-    const { theme, setTheme } = useTheme();
+    const theme = useAppSelector(selectTheme);
+    const dispatch = useAppDispatch();
 
     const handleSetTheme = () => {
-        const newTheme = theme === 'light' ? 'dark' : 'light';
-        setTheme(newTheme);
+        dispatch({
+            type: theme === 'light' ? 'theme_dark' : 'theme_light',
+        });
     };
 
     return (
         <button className={styles.root} onClick={handleSetTheme}>
-            {theme === 'white' ? <MoonIcon /> : <SunIcon />}
+            {theme === 'light' ? <MoonIcon /> : <SunIcon />}
         </button>
     );
 };

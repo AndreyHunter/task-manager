@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 
 import clsx from 'clsx';
 
-import { useTheme } from '../../../context/ThemeProvider';
-import { useTodos, useAppDispatch } from '../../../context/TodoProvider';
-import { addTodo, closeModal } from '../../../store/todo/todoActions';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { selectTheme } from '../../../store/theme/themeReducer';
+import { selectTodoModal } from '../../../store/todoModal/todoModalReducer';
+import { addTodo } from '../../../store/todo/todoActions';
+import { closeModal } from '../../../store/todoModal/todoModalActions';
 
 import { Input } from '../../molecules/input/Input';
 import { Button } from '../../atoms/button/Button';
@@ -12,11 +14,11 @@ import { Button } from '../../atoms/button/Button';
 import styles from './todoModal.module.scss';
 
 export const TodoModal: React.FC = () => {
-    const { isOpen } = useTodos();
+    const isOpen = useAppSelector(selectTodoModal);
     const dispatch = useAppDispatch();
 
     const ref = useRef<HTMLInputElement | null>(null);
-    const { theme } = useTheme();
+    const theme = useAppSelector(selectTheme);
     const combinedClasses = clsx(styles.root, isOpen && styles.active);
     const contentClasses = clsx(
         styles.content,

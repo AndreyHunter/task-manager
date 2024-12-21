@@ -1,11 +1,4 @@
-import {
-    ADD_TODO,
-    COMPLETED_TODO,
-    CHANGE_TODO,
-    DELETE_TODO,
-    OPEN_TODO_MODAL,
-    CLOSE_TODO_MODAL,
-} from './constants';
+import { ADD_TODO, COMPLETED_TODO, CHANGE_TODO, DELETE_TODO } from './constants';
 
 export const addTodo = (text: string): { type: typeof ADD_TODO; payload: { text: string } } => ({
     type: ADD_TODO,
@@ -29,5 +22,3 @@ export const deleteTodo = (id: string): { type: typeof DELETE_TODO; payload: { i
     type: DELETE_TODO,
     payload: { id },
 });
-export const openModal = (): { type: typeof OPEN_TODO_MODAL } => ({ type: OPEN_TODO_MODAL });
-export const closeModal = (): { type: typeof CLOSE_TODO_MODAL } => ({ type: CLOSE_TODO_MODAL });

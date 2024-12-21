@@ -1,45 +1,56 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { TypeTodos } from '../../types';
+import { RootState } from '../index';
 
-import {
-    ADD_TODO,
-    COMPLETED_TODO,
-    CHANGE_TODO,
-    DELETE_TODO,
-    OPEN_TODO_MODAL,
-    CLOSE_TODO_MODAL,
-} from './constants';
+import { ADD_TODO, COMPLETED_TODO, CHANGE_TODO, DELETE_TODO } from './constants';
 
 interface initialState {
-    todos: TypeTodos;
-    isOpen: boolean;
+    items: TypeTodos;
+    isLoading: boolean;
+    error: string | null;
 }
 
-export const initialState: initialState = {
-    todos: [
+const initialState: initialState = {
+    items: [
         {
-            id: 1,
+            id: '1',
             completed: false,
-            text: 'Do something1',
+            text: 'brush teeth and go to the bathroom ',
         },
         {
-            id: 2,
+            id: '2',
             completed: false,
-            text: 'Do something2',
+            text: 'drink a cup of warm water',
         },
         {
-            id: 3,
+            id: '3',
             completed: false,
-            text: 'Do something3',
+            text: 'exercises',
         },
         {
-            id: 4,
+            id: '4',
             completed: false,
-            text: 'Do something4',
+            text: 'have a shower and save',
+        },
+        {
+            id: '5',
+            completed: false,
+            text: 'meditation ( 10 minutes )',
+        },
+        {
+            id: '6',
+            completed: false,
+            text: 'make breakfast and coffee / tea',
+        },
+        {
+            id: '7',
+            completed: false,
+            text: 'have breakfast and tea',
         },
     ],
-    isOpen: false,
+    isLoading: false,
+    error: null,
 };
 
 type TypeAppTodoAction = {
@@ -71,67 +82,68 @@ type TypeDeleteTodoAction = {
     };
 };
 
-type TypeOpenTodoModal = {
-    type: typeof OPEN_TODO_MODAL;
-};
-
-type TypeCloseTodoModal = {
-    type: typeof CLOSE_TODO_MODAL;
-};
-
-export type TypeAction =
+type TypeAction =
     | TypeAppTodoAction
     | TypeCompletedTodoAction
     | TypeChangeTodoAction
-    | TypeDeleteTodoAction
-    | TypeOpenTodoModal
-    | TypeCloseTodoModal;
+    | TypeDeleteTodoAction;
 
-export const todoReducer = (state: initialState, action: TypeAction) => {
+export const todoReducer = (
+    state: initialState = initialState,
+    action: TypeAction,
+): initialState => {
     switch (action.type) {
-        case ADD_TODO:
-            {
-                state.todos.push({
-                    id: uuidv4(),
-                    text: action.payload.text,
-                    completed: false,
-                });
-            }
-            break;
-        case COMPLETED_TODO:
-            {
-                const todo = state.todos.find((todo) => todo.id === action.payload.id);
-                if (todo) {
-                    todo.completed = !todo.completed;
-                }
-            }
-            break;
-        case CHANGE_TODO:
-            {
-                const todo = state.todos.find((todo) => todo.id === action.payload.id);
-                if (todo) {
-                    todo.text = action.payload.text;
-                }
-            }
-            break;
-        case DELETE_TODO:
-            {
-                const todoIndex = state.todos.findIndex((todo) => todo.id === action.payload.id);
-                state.todos.splice(todoIndex, 1);
-            }
-            break;
-        case OPEN_TODO_MODAL:
-            {
-                state.isOpen = true;
-            }
-            break;
-        case CLOSE_TODO_MODAL:
-            {
-                state.isOpen = false;
-            }
-            break;
+        case ADD_TODO: {
+            return {
+                ...state,
+                items: [
+                    ...state.items,
+                    {
+                        id: uuidv4(),
+                        text: action.payload.text,
+                        completed: false,
+                    },
+                ],
+            };
+        }
+        case COMPLETED_TODO: {
+            return {
+                ...state,
+                items: state.items.map((todo) => {
+                    if (todo.id === action.payload.id) {
+                        return {
+                            ...todo,
+                            completed: !todo.completed,
+                        };
+                    }
+                    return todo;
+                }),
+            };
+        }
+        case CHANGE_TODO: {
+            return {
+                ...state,
+                items: state.items.map((todo) => {
+                    if (todo.id === action.payload.id) {
+                        return {
+                            ...todo,
+                            text: action.payload.text,
+                        };
+                    }
+                    return todo;
+                }),
+            };
+        }
+        case DELETE_TODO: {
+            return {
+                ...state,
+                items: state.items.filter((todo) => todo.id !== action.payload.id),
+            };
+        }
         default: {
             return state;
         }
     }
 };
+
+export const selectTodos = (state: RootState) => state.todos;

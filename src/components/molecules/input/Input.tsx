@@ -2,7 +2,8 @@ import React, { forwardRef } from 'react';
 
 import clsx from 'clsx';
 
-import { useTheme } from '../../../context/ThemeProvider';
+import { useAppSelector } from '../../../store/hooks';
+import { selectTheme } from '../../../store/theme/themeReducer';
 
 import SearchIcon from '../../../assets/images/svg/search.svg?react';
 
@@ -17,7 +18,7 @@ interface InputProps {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
     ({ search = false, placeholder, value, onChange }, ref) => {
-        const { theme } = useTheme();
+        const theme = useAppSelector(selectTheme);
         const combinedClasses = clsx(styles.root, { [styles.dark]: theme === 'dark' });
 
         return (
