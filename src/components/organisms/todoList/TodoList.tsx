@@ -2,13 +2,11 @@ import React, { useState, useMemo } from 'react';
 import clsx from 'clsx';
 import SimpleBar from 'simplebar-react';
 
-import { useDebounce } from '../../../hooks/debounce';
-
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { completeTodo, changeTodo, deleteTodo } from '../../../store/todo/todoActions';
 
 import { selectTodos } from '../../../store/todo/todoReducer';
-import { selectTodoFilter } from '../../../store/todoFilter/todoFilterReducer';
+import { selectTodoFilter, selectTodoSearch } from '../../../store/todoFilter/todoFilterReducer';
 
 import { filterTodos } from '../../../utils/filter';
 
@@ -24,7 +22,8 @@ export const TodoList: React.FC<React.HTMLAttributes<HTMLUListElement>> = ({ cla
     const combinedClasses = clsx(styles.root, className);
 
     const { items } = useAppSelector(selectTodos);
-    const { filter, search } = useAppSelector(selectTodoFilter);
+    const filter = useAppSelector(selectTodoFilter);
+    const search = useAppSelector(selectTodoSearch);
     const dispatch = useAppDispatch();
 
     const filteredTodos = useMemo(() => {

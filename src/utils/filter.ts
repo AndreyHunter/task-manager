@@ -14,7 +14,7 @@ export const filterTodos = ({ items, filter, search }: TypeFilterTodos) => {
     //     } else if (filter === 'incomplete') {
     //         return !todo.completed;
     //     } else {
-    //         return todo;
+    //         return true;
     //     }
     // });
     // result = result.filter((todo) => {
@@ -35,6 +35,7 @@ export const filterTodos = ({ items, filter, search }: TypeFilterTodos) => {
     //     const filtered = isComplete ? todo.completed : isIncomplete ? !todo.completed : true;
     //     return isMatch && filtered;
     // });
+
     const normalizedSearch = search.toLowerCase();
 
     const filteredByStatus = items.filter((todo) => {

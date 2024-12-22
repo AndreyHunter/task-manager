@@ -1,4 +1,6 @@
-export const debounce = (func: Function, delay: number) => {
+type TypeDebounceCallback = (...rest: any[]) => void;
+
+export const debounce = (func: TypeDebounceCallback, delay: number) => {
     let timeoutId: ReturnType<typeof setTimeout>;
 
     return (...rest: any[]) => {

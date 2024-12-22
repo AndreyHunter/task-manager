@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
+import { useDebounce } from '../../../hooks/useDebounce';
+
 import { useAppDispatch } from '../../../store/hooks';
 import { setSearch } from '../../../store/todoFilter/todoFilterActions';
-
-import { debounce } from '../../../utils/debounce';
 
 import { Input } from '../../molecules/input/Input';
 import { Select } from '../../atoms/select/Select';
@@ -15,13 +15,13 @@ export const TodoListHeader: React.FC = () => {
     const [searchText, setSearchText] = useState('');
     const dispatch = useAppDispatch();
 
-    const handleDebounceSearch = debounce((search: string) => {
+    const debouncedSearch = useDebounce((search: string) => {
         dispatch(setSearch(search));
     }, 200);
 
     const handleSetSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchText(e.target.value);
-        handleDebounceSearch(e.target.value);
+        debouncedSearch(e.target.value);
     };
 
     return (

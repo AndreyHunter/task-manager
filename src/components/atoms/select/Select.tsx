@@ -2,19 +2,17 @@ import React from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
+import { selectTodoFilter } from '../../../store/todoFilter/todoFilterReducer';
+import { setFilter } from '../../../store/todoFilter/todoFilterActions';
+
 import styles from './select.module.scss';
 
 export const Select: React.FC = () => {
-    const { filter } = useAppSelector((state) => state.filter);
+    const filter = useAppSelector(selectTodoFilter);
     const dispatch = useAppDispatch();
 
     const handleSetFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        dispatch({
-            type: 'set_filter',
-            payload: {
-                filter: e.target.value,
-            },
-        });
+        dispatch(setFilter(e.target.value));
     };
 
     return (
