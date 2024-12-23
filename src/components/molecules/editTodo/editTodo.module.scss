@@ -1,20 +1,31 @@
 .root {
     width: 170px;
     height: 45px;
-    background-color: var(--black);
+    background-color: var(--white);
     padding: 10px;
     border-radius: var(--border-radius);
-    border: 2px solid white;
-    color: white;
+    border: 2px solid var(--purple);
 
     > input {
         width: 80%;
-        color: white;
+        color: black;
         transform: translateY(-1px);
 
         &::placeholder {
             color: inherit;
             opacity: 0.7;
+        }
+    }
+
+    &.dark {
+        background-color: var(--black);
+
+        > input {
+            color: white;
+        }
+
+        > button > svg path {
+            stroke: #cdcdcd;
         }
     }
 
@@ -32,6 +43,9 @@
 
         > svg {
             transform: translateY(1px);
+            path {
+                stroke: #cdcdcd;
+            }
         }
     }
 }

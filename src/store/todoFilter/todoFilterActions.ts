@@ -1,16 +1,16 @@
-import { SET_FILTER, SET_SEARCH } from './constants';
+import { TodoFilterActionTypes } from './TodoFilterActionTypes';
 
-type TypeSetFilter = { type: typeof SET_FILTER; payload: { filter: string } };
+type TypeSetFilter = { type: typeof TodoFilterActionTypes.SET_FILTER; payload: { filter: string } };
 
 export const setFilter = (filter: string): TypeSetFilter => ({
-    type: SET_FILTER,
+    type: TodoFilterActionTypes.SET_FILTER,
     payload: { filter },
 });
 
-type TypeSetSearch = { type: typeof SET_SEARCH; payload: { search: string } };
+type TypeSetSearch = { type: typeof TodoFilterActionTypes.SET_SEARCH; payload: { search: string } };
 
 export const setSearch = (search: string): TypeSetSearch => ({
-    type: SET_SEARCH,
+    type: TodoFilterActionTypes.SET_SEARCH,
     payload: {
         search,
     },

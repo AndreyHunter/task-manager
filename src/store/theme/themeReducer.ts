@@ -1,10 +1,12 @@
 import { RootState } from '../index';
 
-import { LIGHT_THEME, DARK_THEME } from './constants';
+import { ThemeActionTypes } from './ThemeActionTypes';
 
 type initialState = 'dark' | 'light';
 
-type ThemeAction = { type: typeof LIGHT_THEME } | { type: typeof DARK_THEME };
+export type ThemeAction =
+    | { type: typeof ThemeActionTypes.LIGHT_THEME }
+    | { type: typeof ThemeActionTypes.DARK_THEME };
 
 const selectedTheme = localStorage.getItem('theme') as initialState;
 
@@ -13,10 +15,10 @@ export const themeReducer = (
     action: ThemeAction,
 ) => {
     switch (action.type) {
-        case LIGHT_THEME: {
+        case ThemeActionTypes.LIGHT_THEME: {
             return 'light';
         }
-        case DARK_THEME: {
+        case ThemeActionTypes.DARK_THEME: {
             return 'dark';
         }
         default: {

@@ -1,5 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 
+import clsx from 'clsx';
+
+import { useAppSelector } from '../../../store/hooks';
+
+import { selectTheme } from '../../../store/theme/themeReducer';
+
 import SendIcon from '../../../assets/images/svg/send.svg?react';
 
 import styles from './editTodo.module.scss';
@@ -11,6 +17,9 @@ interface EditTodoProps {
 }
 
 export const EditTodo: React.FC<EditTodoProps> = ({ value, onChange, onChangeTodo }) => {
+    const theme = useAppSelector(selectTheme);
+    const combinedClasses = clsx(styles.root, { [styles.dark]: theme === 'dark' });
+
     const ref = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
@@ -27,7 +36,7 @@ export const EditTodo: React.FC<EditTodoProps> = ({ value, onChange, onChangeTod
     };
 
     return (
-        <form className={styles.root} onSubmit={handleSubmit}>
+        <form className={combinedClasses} onSubmit={handleSubmit}>
             <input
                 type="text"
                 value={value}

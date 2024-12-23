@@ -1,6 +1,6 @@
 import type { RootState } from '../index';
 
-import { SET_FILTER, SET_SEARCH } from './constants';
+import { TodoFilterActionTypes } from './TodoFilterActionTypes';
 
 interface TodoFilterState {
     filter: string;
@@ -8,18 +8,18 @@ interface TodoFilterState {
 }
 
 type SetFilterAction = {
-    type: typeof SET_FILTER;
+    type: typeof TodoFilterActionTypes.SET_FILTER;
     payload: { filter: string };
 };
 
 type SetSearchAction = {
-    type: typeof SET_SEARCH;
+    type: typeof TodoFilterActionTypes.SET_SEARCH;
     payload: {
         search: string;
     };
 };
 
-type TodoFilterAction = SetFilterAction | SetSearchAction;
+export type TodoFilterAction = SetFilterAction | SetSearchAction;
 
 const initialState: TodoFilterState = {
     filter: 'all',
@@ -31,13 +31,13 @@ export const todoFilterReducer = (
     action: TodoFilterAction,
 ) => {
     switch (action.type) {
-        case SET_FILTER: {
+        case TodoFilterActionTypes.SET_FILTER: {
             return {
                 ...state,
                 filter: action.payload.filter,
             };
         }
-        case SET_SEARCH: {
+        case TodoFilterActionTypes.SET_SEARCH: {
             return {
                 ...state,
                 search: action.payload.search,

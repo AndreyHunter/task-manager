@@ -1,22 +1,22 @@
 import { RootState } from '../index';
-import { OPENED_TODO_MODAL, CLOSED_TODO_MODAL } from './constants';
+import { TodoModalActionTypes } from './TodoModalActionTypes';
 
-type TypeOpenTodoModal = {
-    type: typeof OPENED_TODO_MODAL;
+type OpenTodoModalAction = {
+    type: typeof TodoModalActionTypes.OPENED_TODO_MODAL;
 };
 
-type TypeCloseTodoModal = {
-    type: typeof CLOSED_TODO_MODAL;
+type CloseTodoModalAction = {
+    type: typeof TodoModalActionTypes.CLOSED_TODO_MODAL;
 };
 
-type TypeTodoModalAction = TypeOpenTodoModal | TypeCloseTodoModal;
+export type TodoModalAction = OpenTodoModalAction | CloseTodoModalAction;
 
-export const todoModalReducer = (state = false, action: TypeTodoModalAction) => {
+export const todoModalReducer = (state = false, action: TodoModalAction) => {
     switch (action.type) {
-        case OPENED_TODO_MODAL: {
+        case TodoModalActionTypes.OPENED_TODO_MODAL: {
             return true;
         }
-        case CLOSED_TODO_MODAL: {
+        case TodoModalActionTypes.CLOSED_TODO_MODAL: {
             return false;
         }
         default: {

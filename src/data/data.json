@@ -1,19 +1,44 @@
 {
   "todos": [
     {
-      "id": "1",
-      "completed": false,
-      "text": "Wake up"
+      "id": "6a6b171d-e005-4f3b-bad2-1f9ed120c729",
+      "text": "brush teeth and go to the bathroom",
+      "completed": false
     },
     {
-      "id": "2",
-      "completed": true,
-      "text": "Brush the teeth"
+      "id": "e91c5950-5f53-442a-a721-c939184b5d28",
+      "text": "drink a cup of warm water",
+      "completed": false
     },
     {
-      "id": "3",
-      "completed": false,
-      "text": "Brush the teeth"
+      "id": "4a640752-2161-4afc-96ee-8b060514f7f5",
+      "text": "exercises",
+      "completed": false
+    },
+    {
+      "id": "769cf04d-4cf7-4faf-be2b-fa50eafe251c",
+      "text": "have a shower and save",
+      "completed": false
+    },
+    {
+      "id": "f8bdc00f-5267-45f0-bcb9-d41582a2a240",
+      "text": "meditation ( 10 minutes )",
+      "completed": false
+    },
+    {
+      "id": "2763d649-c301-4411-955d-8a00007dac86",
+      "text": "make breakfast coffee / tea",
+      "completed": false
+    },
+    {
+      "id": "6009017f-35bb-41ab-99b7-bb1ee0bdea42",
+      "text": "have breakfast coffee / tea",
+      "completed": false
+    },
+    {
+      "id": "6a6c3655-8bb3-48ea-8bc9-1ca9f0a8e9a7",
+      "text": "programming learning ( 4 hours )",
+      "completed": false
     }
   ]
 }

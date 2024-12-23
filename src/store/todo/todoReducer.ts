@@ -1,9 +1,7 @@
-import { v4 as uuidv4 } from 'uuid';
-
-import { TypeTodos } from '../../types';
+import { TypeTodo, TypeTodos } from '../../types';
 import { RootState } from '../index';
 
-import { ADD_TODO, COMPLETED_TODO, CHANGE_TODO, DELETE_TODO } from './constants';
+import { TodoActionTypes } from './TodoActionTypes';
 
 interface initialState {
     items: TypeTodos;
@@ -12,101 +10,98 @@ interface initialState {
 }
 
 const initialState: initialState = {
-    items: [
-        {
-            id: '1',
-            completed: false,
-            text: 'brush teeth and go to the bathroom ',
-        },
-        {
-            id: '2',
-            completed: false,
-            text: 'drink a cup of warm water',
-        },
-        {
-            id: '3',
-            completed: false,
-            text: 'exercises',
-        },
-        {
-            id: '4',
-            completed: false,
-            text: 'have a shower and save',
-        },
-        {
-            id: '5',
-            completed: false,
-            text: 'meditation ( 10 minutes )',
-        },
-        {
-            id: '6',
-            completed: false,
-            text: 'make breakfast and coffee / tea',
-        },
-        {
-            id: '7',
-            completed: false,
-            text: 'have breakfast and tea',
-        },
-    ],
+    items: [],
     isLoading: false,
     error: null,
 };
 
-type TypeAppTodoAction = {
-    type: typeof ADD_TODO;
+type AddTodoAction = {
+    type: typeof TodoActionTypes.ADDED_TODO;
     payload: {
+        todo: TypeTodo;
+    };
+};
+
+type SetTodosAction = {
+    type: typeof TodoActionTypes.SET_TODOS;
+    payload: {
+        items: TypeTodos;
+    };
+};
+
+type SetTodosLoadingAction = {
+    type: typeof TodoActionTypes.SET_LOADING;
+    payload: boolean;
+};
+
+type SetTodosErrorAction = {
+    type: typeof TodoActionTypes.SET_ERROR;
+    payload: {
+        error: string | null;
+    };
+};
+
+type CompleteTodoAction = {
+    type: typeof TodoActionTypes.COMPLETED_TODO;
+    payload: {
+        id: string;
+    };
+};
+
+type ChangeTodoAction = {
+    type: typeof TodoActionTypes.CHANGED_TODO;
+    payload: {
+        id: string;
         text: string;
     };
 };
 
-type TypeCompletedTodoAction = {
-    type: typeof COMPLETED_TODO;
+type DeleteTodoAction = {
+    type: typeof TodoActionTypes.DELETED_TODO;
     payload: {
         id: string;
     };
 };
 
-type TypeChangeTodoAction = {
-    type: typeof CHANGE_TODO;
-    payload: {
-        id: string;
-        text: string;
-    };
-};
-
-type TypeDeleteTodoAction = {
-    type: typeof DELETE_TODO;
-    payload: {
-        id: string;
-    };
-};
-
-type TypeAction =
-    | TypeAppTodoAction
-    | TypeCompletedTodoAction
-    | TypeChangeTodoAction
-    | TypeDeleteTodoAction;
+export type TodosAction =
+    | AddTodoAction
+    | SetTodosAction
+    | SetTodosLoadingAction
+    | SetTodosErrorAction
+    | CompleteTodoAction
+    | ChangeTodoAction
+    | DeleteTodoAction;
 
 export const todoReducer = (
     state: initialState = initialState,
-    action: TypeAction,
+    action: TodosAction,
 ): initialState => {
     switch (action.type) {
-        case ADD_TODO: {
+        case TodoActionTypes.ADDED_TODO: {
             return {
                 ...state,
-                items: [
-                    ...state.items,
-                    {
-                        id: uuidv4(),
-                        text: action.payload.text,
-                        completed: false,
-                    },
-                ],
+                items: [...state.items, action.payload.todo],
             };
         }
-        case COMPLETED_TODO: {
+        case TodoActionTypes.SET_TODOS: {
+            return {
+                ...state,
+                items: action.payload.items,
+            };
+        }
+        case TodoActionTypes.SET_LOADING: {
+            return {
+                ...state,
+                isLoading: action.payload,
+            };
+        }
+        case TodoActionTypes.SET_ERROR: {
+            return {
+                ...state,
+                error: action.payload.error,
+            };
+        }
+        case TodoActionTypes.COMPLETED_TODO: {
             return {
                 ...state,
                 items: state.items.map((todo) => {
@@ -120,7 +115,7 @@ export const todoReducer = (
                 }),
             };
         }
-        case CHANGE_TODO: {
+        case TodoActionTypes.CHANGED_TODO: {
             return {
                 ...state,
                 items: state.items.map((todo) => {
@@ -134,7 +129,7 @@ export const todoReducer = (
                 }),
             };
         }
-        case DELETE_TODO: {
+        case TodoActionTypes.DELETED_TODO: {
             return {
                 ...state,
                 items: state.items.filter((todo) => todo.id !== action.payload.id),
