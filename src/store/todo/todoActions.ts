@@ -1,16 +1,16 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import type { AppThunk } from '../types';
+import { TodoActionTypes } from './TodoActionTypes';
+import type { TypeTodo, TypeTodos } from '../../types/';
 
 import { generateError } from '../../utils/error';
-
-import { TodoActionTypes } from './TodoActionTypes';
 
 export const addTodo =
     (text: string): AppThunk =>
     async (dispatch, _, client) => {
         try {
-            const res = await client.post('todos', {
+            const res = await client.post<TypeTodo>('todos', {
                 id: uuidv4(),
                 text,
                 completed: false,
@@ -33,7 +33,7 @@ export const fetchTodos = (): AppThunk => async (dispatch, _, client) => {
         payload: true,
     });
     try {
-        const res = await client.get('todos');
+        const res = await client.get<TypeTodos>('todos');
         dispatch({
             type: TodoActionTypes.SET_TODOS,
             payload: { items: res.data },
@@ -56,16 +56,16 @@ export const fetchTodos = (): AppThunk => async (dispatch, _, client) => {
 export const completeTodo = (id: string): AppThunk => {
     return async function (dispatch, _, client) {
         try {
-            const todo = await client.get(`todos/${id}`);
+            const todo = await client.get<TypeTodo>(`todos/${id}`);
 
-            await client.patch(`todos/${id}`, {
+            const res = await client.patch<TypeTodo>(`todos/${id}`, {
                 completed: !todo.data.completed,
             });
 
             dispatch({
                 type: TodoActionTypes.COMPLETED_TODO,
                 payload: {
-                    id,
+                    todo: res.data,
                 },
             });
         } catch (err) {
@@ -78,14 +78,13 @@ export const changeTodo =
     (id: string, text: string): AppThunk =>
     async (dispatch, _, client) => {
         try {
-            await client.patch(`todos/${id}`, {
+            const res = await client.patch<TypeTodo>(`todos/${id}`, {
                 text,
             });
             dispatch({
                 type: TodoActionTypes.CHANGED_TODO,
                 payload: {
-                    id,
-                    text,
+                    todo: res.data,
                 },
             });
         } catch (err) {
@@ -97,11 +96,11 @@ export const deleteTodo =
     (id: string): AppThunk =>
     async (dispatch, _, client) => {
         try {
-            await client.delete(`todos/${id}`);
+            const res = await client.delete<TypeTodo>(`todos/${id}`);
             dispatch({
                 type: TodoActionTypes.DELETED_TODO,
                 payload: {
-                    id,
+                    todo: res.data,
                 },
             });
         } catch (err) {

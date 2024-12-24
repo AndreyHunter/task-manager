@@ -3,13 +3,13 @@ import { RootState } from '../index';
 
 import { TodoActionTypes } from './TodoActionTypes';
 
-interface initialState {
+interface TodoState {
     items: TypeTodos;
     isLoading: boolean;
     error: string | null;
 }
 
-const initialState: initialState = {
+const initialState: TodoState = {
     items: [],
     isLoading: false,
     error: null,
@@ -44,22 +44,21 @@ type SetTodosErrorAction = {
 type CompleteTodoAction = {
     type: typeof TodoActionTypes.COMPLETED_TODO;
     payload: {
-        id: string;
+        todo: TypeTodo;
     };
 };
 
 type ChangeTodoAction = {
     type: typeof TodoActionTypes.CHANGED_TODO;
     payload: {
-        id: string;
-        text: string;
+        todo: TypeTodo;
     };
 };
 
 type DeleteTodoAction = {
     type: typeof TodoActionTypes.DELETED_TODO;
     payload: {
-        id: string;
+        todo: TypeTodo;
     };
 };
 
@@ -72,10 +71,7 @@ export type TodosAction =
     | ChangeTodoAction
     | DeleteTodoAction;
 
-export const todoReducer = (
-    state: initialState = initialState,
-    action: TodosAction,
-): initialState => {
+export const todoReducer = (state: TodoState = initialState, action: TodosAction): TodoState => {
     switch (action.type) {
         case TodoActionTypes.ADDED_TODO: {
             return {
@@ -104,35 +100,23 @@ export const todoReducer = (
         case TodoActionTypes.COMPLETED_TODO: {
             return {
                 ...state,
-                items: state.items.map((todo) => {
-                    if (todo.id === action.payload.id) {
-                        return {
-                            ...todo,
-                            completed: !todo.completed,
-                        };
-                    }
-                    return todo;
-                }),
+                items: state.items.map((todo) =>
+                    todo.id === action.payload.todo.id ? action.payload.todo : todo,
+                ),
             };
         }
         case TodoActionTypes.CHANGED_TODO: {
             return {
                 ...state,
-                items: state.items.map((todo) => {
-                    if (todo.id === action.payload.id) {
-                        return {
-                            ...todo,
-                            text: action.payload.text,
-                        };
-                    }
-                    return todo;
-                }),
+                items: state.items.map((todo) =>
+                    todo.id === action.payload.todo.id ? action.payload.todo : todo,
+                ),
             };
         }
         case TodoActionTypes.DELETED_TODO: {
             return {
                 ...state,
-                items: state.items.filter((todo) => todo.id !== action.payload.id),
+                items: state.items.filter((todo) => todo.id !== action.payload.todo.id),
             };
         }
         default: {
